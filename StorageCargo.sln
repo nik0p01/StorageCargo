@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageCargo", "StorageCargo\StorageCargo.csproj", "{3795578E-E114-410C-BD00-722591FE74C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageCargoTests", "StorageCargoTests\StorageCargoTests.csproj", "{2E5DE0CB-4890-403A-8391-6474EEBD222C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3795578E-E114-410C-BD00-722591FE74C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3795578E-E114-410C-BD00-722591FE74C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3795578E-E114-410C-BD00-722591FE74C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3795578E-E114-410C-BD00-722591FE74C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E5DE0CB-4890-403A-8391-6474EEBD222C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E5DE0CB-4890-403A-8391-6474EEBD222C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E5DE0CB-4890-403A-8391-6474EEBD222C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E5DE0CB-4890-403A-8391-6474EEBD222C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49E62FCE-85BE-41EA-944A-E29F96561F53}
+	EndGlobalSection
+EndGlobal

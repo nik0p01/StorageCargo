@@ -1,0 +1,27 @@
+﻿<Window x:Class="StorageCargo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local = "clr-namespace:StorageCargo"
+        xmlns:vm = "clr-namespace:StorageCargo.VM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainVM/>
+    </Window.DataContext>
+    <Grid>
+        <DatePicker  x:Name="dateStart" HorizontalAlignment="Left" Margin="63,87,0,0" VerticalAlignment="Top" SelectedDate="{Binding DateStart}"/>
+        <DatePicker x:Name="dateEnd" HorizontalAlignment="Left" Margin="289,87,0,0" VerticalAlignment="Top" SelectedDate="{Binding DateEnd}"/>
+        <Button x:Name="takeFile" Content="Take File" Command="{Binding TakeFileCommand}" HorizontalAlignment="Left" Margin="63,49,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="calculate" Content="Calculate" Command="{Binding CalculateCommand}" HorizontalAlignment="Left" Margin="63,125,0,0" VerticalAlignment="Top" Width="75"/>
+        <!--<DataGrid x:Name="resultGrid" HorizontalAlignment="Left" Height="222" Margin="63,171,0,0" VerticalAlignment="Top" Width="472" DataContext ="{Binding resultGrid, Mode=OneWay}" IsReadOnly="True"/>-->
+
+        <DataGrid x:Name="ProgressiveRates" AutoGenerateColumns="True" ItemsSource="{Binding ProgressiveRates}" Margin="0,170,0,0"/>
+        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="203,85,0,0" VerticalAlignment="Top"/>
+
+
+
+    </Grid>
+</Window>
