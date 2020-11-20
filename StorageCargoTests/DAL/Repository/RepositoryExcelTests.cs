@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using System.Linq;
-
-namespace StorageCargo.DAL.Repository.Tests
+﻿namespace StorageCargo.DAL.Repository.Tests
 {
     [TestFixture()]
     public class RepositoryExcelTests

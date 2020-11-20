@@ -1,8 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using StorageCargo.DAL.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace StorageCargo.DAL.Repository
 {
@@ -15,7 +13,7 @@ namespace StorageCargo.DAL.Repository
             _excelFilePatch = excelFilePatch;
         }
 
-        public IEnumerable<Cargo> GetCargos()
+        public ICollection<Cargo> GetCargos()
         {
             CollectionCargos cargos = new CollectionCargos();
             int sheet = 1;
@@ -24,12 +22,12 @@ namespace StorageCargo.DAL.Repository
             return cargosResult;
         }
 
-        public IEnumerable<Rate> GetRates()
+        public ICollection<Rate> GetRates()
         {
-            CollectionRates rates = new CollectionRates() ;
+            CollectionRates rates = new CollectionRates();
             int sheet = 2;
             GetDateFromExcel(rates, sheet);
-            List<Rate> ratesResult = rates.Entities.ConvertAll(e => e as Rate );
+            List<Rate> ratesResult = rates.Entities.ConvertAll(e => e as Rate);
             return ratesResult;
         }
 
@@ -49,7 +47,7 @@ namespace StorageCargo.DAL.Repository
                 {
                     for (int j = 0; j < numberColumn; j++)
                     {
-                        row[j] = (ObjWorkSheet.Cells[i + 1, j+1]).Text.ToString();
+                        row[j] = (ObjWorkSheet.Cells[i + 1, j + 1]).Text.ToString();
                     }
                     Entities.AddEntity(row);
                 }

@@ -5,7 +5,7 @@ namespace StorageCargo.DAL.Repository
 {
     public interface IRepository
     {
-        IEnumerable<Cargo> GetCargos();
-        IEnumerable<Rate> GetRates();
+        ICollection<Cargo> GetCargos();
+        ICollection<Rate> GetRates();
     }
 }

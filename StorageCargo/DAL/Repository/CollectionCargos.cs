@@ -1,13 +1,10 @@
 ﻿using StorageCargo.DAL.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageCargo.DAL.Repository
 {
-    class CollectionCargos:ICollectionEntities
+    class CollectionCargos : ICollectionEntities
     {
         public CollectionCargos()
         {

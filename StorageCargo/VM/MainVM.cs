@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using StorageCargo.BL;
+﻿using StorageCargo.BL;
 using StorageCargo.BL.BLEntities;
 using StorageCargo.DAL.Repository;
 using System;
@@ -66,7 +65,7 @@ namespace StorageCargo.VM
         }
 
 
-        private DateTime _dateStart = DateTime.Now;
+        private DateTime _dateStart = new DateTime(2017, 10, 1);
         public DateTime DateStart
         {
             get
@@ -80,7 +79,7 @@ namespace StorageCargo.VM
             }
         }
 
-        private DateTime _dateEnd = DateTime.Now;
+        private DateTime _dateEnd = new DateTime(2017, 10, 15);
         public DateTime DateEnd
         {
             get

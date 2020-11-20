@@ -1,6 +1,6 @@
 ﻿namespace StorageCargo.DAL.Entities
 {
-    public class Rate: IEntity
+    public class Rate : IEntity
     {
         public int number;
         public int beginingPeriod;

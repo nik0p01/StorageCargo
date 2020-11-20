@@ -32,23 +32,23 @@ namespace StorageCargo.BL.BLEntities
             }
         }
 
-        public int Rate
+        public int RateCount
         {
             get { return _rate; }
             set
             {
                 _rate = value;
-                OnPropertyChanged("Rate");
+                OnPropertyChanged("RateCount");
             }
         }
 
-        public int StorageNumber
+        public int StorageNumberDays
         {
             get { return _storageNumber; }
             set
             {
                 _storageNumber = value;
-                OnPropertyChanged("StorageNumber");
+                OnPropertyChanged("StorageNumberDays");
             }
         }
 
