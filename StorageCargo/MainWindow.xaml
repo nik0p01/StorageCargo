@@ -6,26 +6,27 @@
         xmlns:local = "clr-namespace:StorageCargo"
         xmlns:vm = "clr-namespace:StorageCargo.VM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="StorageCargo" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainVM/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="239*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <DatePicker  x:Name="dateStart" HorizontalAlignment="Left" Margin="63,87,0,0" VerticalAlignment="Top" SelectedDate="{Binding DateStart}"/>
-        <DatePicker x:Name="dateEnd" HorizontalAlignment="Left" Margin="289,87,0,0" VerticalAlignment="Top" SelectedDate="{Binding DateEnd}"/>
-        <Button x:Name="takeFile" Content="Take File" Command="{Binding TakeFileCommand}" HorizontalAlignment="Left" Margin="63,49,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="calculate" Content="Calculate" Command="{Binding CalculateCommand}" HorizontalAlignment="Left" Margin="63,125,0,0" VerticalAlignment="Top" Width="75"/>
-        <!--<DataGrid x:Name="resultGrid" HorizontalAlignment="Left" Height="222" Margin="63,171,0,0" VerticalAlignment="Top" Width="472" DataContext ="{Binding resultGrid, Mode=OneWay}" IsReadOnly="True"/>-->
+        <DatePicker  x:Name="dateStart" HorizontalAlignment="Left" Margin="9,87,0,0" VerticalAlignment="Top" SelectedDate="{Binding DateStart}" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <DatePicker x:Name="dateEnd" HorizontalAlignment="Left" Margin="214,87,0,0" VerticalAlignment="Top" SelectedDate="{Binding DateEnd}" Grid.Column="2"/>
+        <Button x:Name="takeFile" Content="Take File" Command="{Binding TakeFileCommand}" HorizontalAlignment="Left" Margin="9,49,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="calculate" Content="Calculate" Command="{Binding CalculateCommand}" HorizontalAlignment="Left" Margin="9,125,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.ColumnSpan="2"/>
 
-        <DataGrid x:Name="ProgressiveRates" AutoGenerateColumns= "False" ItemsSource="{Binding ProgressiveRates}" Margin="0,10,0,0" Grid.Row="1">
-        <DataGrid.Columns>
+        <DataGrid x:Name="ProgressiveRates" AutoGenerateColumns= "False" ItemsSource="{Binding ProgressiveRates}" Margin="0,10,0,0" Grid.Row="1" IsReadOnly="True" Grid.ColumnSpan="3" >
+            <DataGrid.Columns>
                 <DataGridTextColumn Header="Груз" Binding="{Binding Cargo}"/>
                 <DataGridTextColumn Header="Дата прихода на склад" Binding="{Binding DateArrival, StringFormat='{}{0:dd/MM/yyyy}'}"/>
                 <DataGridTextColumn Header="Дата ухода со склада" Binding="{Binding DateLeaving, StringFormat='{}{0:dd/MM/yyyy}'}"/>
@@ -38,9 +39,7 @@
         </DataGrid>
 
         <Label x:Name="label" Content="Begin" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label1" Content="End" HorizontalAlignment="Left" Margin="203,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.427,0.453"/>
-
-
+        <Label x:Name="label1" Content="End" HorizontalAlignment="Left" Margin="128,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.427,0.453" Grid.Column="2"/>
 
     </Grid>
 </Window>

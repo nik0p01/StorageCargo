@@ -6,24 +6,25 @@ using System.Collections.Generic;
 
 namespace StorageCargo.BL
 {
-    public class CalculationProcessor// : ICalculationProcessor
+    public class CalculationProcessor
     {
         private readonly IRepository _repository;
-        private readonly DateTime _dateBeginPeriod;
-        private readonly DateTime _dateEndPeriod;
+        private readonly DateTime _dateBeginRange;
+        private readonly DateTime _dateEndRange;
+        private ICollection<ProgressiveRate> _progressiveRates;
 
-
-
-        public CalculationProcessor(IRepository repository, DateTime dateStart, DateTime dateEnd)
+        public CalculationProcessor(IRepository repository, ICollection<ProgressiveRate> progressiveRates, DateTime dateStart, DateTime dateEnd)
         {
             _repository = repository;
-            _dateBeginPeriod = dateStart;
-            _dateEndPeriod = dateEnd;
+            _dateBeginRange = dateStart;
+            _dateEndRange = dateEnd;
+            _progressiveRates = progressiveRates;
         }
 
-        public void ProgressiveRate(ICollection<ProgressiveRate> progressiveRates)
+
+        public void CalculateProgressiveRate()
         {
-            if (_dateBeginPeriod > _dateEndPeriod)
+            if (_dateBeginRange > _dateEndRange)
             {
                 return;
             }
@@ -33,17 +34,17 @@ namespace StorageCargo.BL
             ratesSort.Sort((x, y) => x.number.CompareTo(y.number));
             foreach (var cargo in cargos)
             {
-                DateTime leaving = IfNullTakeCurrentDate(cargo.leaving);
-                DateTime arrival = RoundToDays(cargo.arrival);
-                if (NotInRange(arrival, leaving))
+                DateTime arrivalCargo = RoundToDays(cargo.arrival);
+                DateTime leavingCargo = IfNullTakeCurrentDate(cargo.leaving);
+                if (NotInPeriod(arrivalCargo, leavingCargo))
                 {
                     continue;
                 }
-                DateTime beginCalc = arrival;// начало расчета без учета периода расчета
-                DateTime endCalc;// конец расчета без учета периода расчета
+                DateTime beginCalc = arrivalCargo;// начало расчета без учета диапазона расчета
+                DateTime endCalc;// конец расчета без учета диапазона расчета
                 foreach (var rate in ratesSort)
                 {
-                    int endPeriod = GetEndPeriodIfNull(arrival, leaving, rate.endPeriod);
+                    int endPeriod = GetEndPeriodIfNull(arrivalCargo, leavingCargo, rate.endPeriod);//
                     //Находим дату окончания расчета сдвигая начало расчета на число дней в расчете уменьшенное на 1
                     if (rate.beginingPeriod == 0)
                     {
@@ -54,22 +55,27 @@ namespace StorageCargo.BL
                         //разница между Окончание периода и Начало периода и будет число дней в расчете уменьшенное на 1
                         endCalc = beginCalc.AddDays(endPeriod - rate.beginingPeriod);
                     }
-                    if (CalculationCrossesPeriod(beginCalc, endCalc)) // расчет попадает в заданныйпериод
+                    if (endCalc > leavingCargo)
                     {
-                        DateTime beginCalcPeriod = beginCalc;// начало расчета c учета периода расчета
-                        DateTime endCalcPeriod = endCalc;// конец расчета c учета периода расчета
-                        if (beginCalc < _dateBeginPeriod)
+                        endCalc = leavingCargo;
+                    }
+
+                    if (CalculationCrossesRange(beginCalc, endCalc)) // расчет попадает в заданный диапазон
+                    {
+                        DateTime beginCalcPeriod = beginCalc;// начало расчета c учета диапазона расчета
+                        DateTime endCalcPeriod = endCalc;// конец расчета c учета диапазона расчета
+                        if (beginCalc < _dateBeginRange)
                         {
-                            beginCalcPeriod = _dateBeginPeriod;
+                            beginCalcPeriod = _dateBeginRange;
                         }
-                        if (endCalc > _dateEndPeriod)
+                        if (endCalc > _dateEndRange)
                         {
-                            endCalcPeriod = _dateEndPeriod;
+                            endCalcPeriod = _dateEndRange;
                         }
                         int storageNumberDays = (int)(endCalcPeriod - beginCalcPeriod).TotalDays + 1;
-                        progressiveRates.Add(new ProgressiveRate()
+                        _progressiveRates.Add(new ProgressiveRate()
                         {
-                            BeginCalculation = beginCalc,
+                            BeginCalculation = beginCalcPeriod,
                             EndCalculation = endCalcPeriod,
                             Cargo = cargo.name,
                             DateArrival = cargo.arrival,
@@ -80,7 +86,11 @@ namespace StorageCargo.BL
                         });
                     }
                     beginCalc = endCalc.AddDays(1);
-                    if (beginCalc > _dateEndPeriod)
+                    if (beginCalc > _dateEndRange)
+                    {
+                        break;
+                    }
+                    if (beginCalc > leavingCargo)
                     {
                         break;
                     }
@@ -88,14 +98,14 @@ namespace StorageCargo.BL
             }
         }
 
-        private bool CalculationCrossesPeriod(DateTime beginCalc, DateTime endCalc)
+        private bool CalculationCrossesRange(DateTime beginCalc, DateTime endCalc)
         {
-            return !(beginCalc > _dateEndPeriod || endCalc < _dateBeginPeriod);
+            return !(beginCalc > _dateEndRange || endCalc < _dateBeginRange);
         }
 
-        private bool NotInRange(DateTime arrival, DateTime leaving)
+        private bool NotInPeriod(DateTime arrival, DateTime leaving)
         {
-            return arrival > _dateEndPeriod || leaving < _dateBeginPeriod;
+            return arrival > _dateEndRange || leaving < _dateBeginRange;
         }
 
         private static int GetEndPeriodIfNull(DateTime arrival, DateTime leaving, int? rateEndPeriod)

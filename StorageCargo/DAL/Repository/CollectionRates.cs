@@ -28,7 +28,13 @@ namespace StorageCargo.DAL.Repository
             {
                 endOfPeriod = null;
             }
-            Entities.Add(new Rate() { number = number, beginingPeriod = beginOfPeriod, endPeriod = endOfPeriod, rate = rate });
+            Entities.Add(new Rate()
+            {
+                number = number,
+                beginingPeriod = beginOfPeriod,
+                endPeriod = endOfPeriod,
+                rate = rate
+            });
         }
     }
 }

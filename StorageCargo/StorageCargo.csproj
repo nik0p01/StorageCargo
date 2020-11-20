@@ -62,7 +62,6 @@
     </ApplicationDefinition>
     <Compile Include="BL\BLEntities\ProgressiveRate.cs" />
     <Compile Include="BL\CalculationProcessor.cs" />
-    <Compile Include="BL\ICalculationProcessor.cs" />
     <Compile Include="DAL\Entities\IEntity.cs" />
     <Compile Include="DAL\Repository\CollectionCargos.cs" />
     <Compile Include="DAL\Repository\CollectionRates.cs" />

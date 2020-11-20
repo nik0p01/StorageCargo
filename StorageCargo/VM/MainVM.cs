@@ -60,8 +60,9 @@ namespace StorageCargo.VM
 
         private void ExecuteCalculate(object obj)
         {
-            CalculationProcessor calculationProcessor = new CalculationProcessor(new RepositoryExcel(_excelFilePatch), _dateStart, _dateEnd);
-            calculationProcessor.ProgressiveRate(ProgressiveRates);
+            ProgressiveRates.Clear();
+            CalculationProcessor calculationProcessor = new CalculationProcessor(new RepositoryExcel(_excelFilePatch), ProgressiveRates, _dateStart, _dateEnd);
+            calculationProcessor.CalculateProgressiveRate();
         }
 
 
@@ -75,7 +76,6 @@ namespace StorageCargo.VM
             set
             {
                 _dateStart = value;
-                OnPropertyChanged(nameof(DateStart));
             }
         }
 
@@ -89,7 +89,6 @@ namespace StorageCargo.VM
             set
             {
                 _dateEnd = value;
-                OnPropertyChanged(nameof(DateEnd));
             }
 
         }
