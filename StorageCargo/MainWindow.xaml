@@ -30,7 +30,7 @@
                 <DataGridTextColumn Header="Груз" Binding="{Binding Cargo}"/>
                 <DataGridTextColumn Header="Дата прихода на склад" Binding="{Binding DateArrival, StringFormat='{}{0:dd/MM/yyyy}'}"/>
                 <DataGridTextColumn Header="Дата ухода со склада" Binding="{Binding DateLeaving, StringFormat='{}{0:dd/MM/yyyy}'}"/>
-                <DataGridTextColumn Header="Насчало расчета" Binding="{Binding BeginCalculation, StringFormat='{}{0:dd/MM/yyyy}'}"/>
+                <DataGridTextColumn Header="Начало расчета" Binding="{Binding BeginCalculation, StringFormat='{}{0:dd/MM/yyyy}'}"/>
                 <DataGridTextColumn Header="Окончание расчета" Binding="{Binding EndCalculation, StringFormat='{}{0:dd/MM/yyyy}'}"/>
                 <DataGridTextColumn Header="Кол-во дней" Binding="{Binding StorageNumberDays}"/>
                 <DataGridTextColumn Header="Ставка" Binding="{Binding RateCount}"/>

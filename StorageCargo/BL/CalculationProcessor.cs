@@ -110,7 +110,7 @@ namespace StorageCargo.BL
 
         private static int GetEndPeriodIfNull(DateTime arrival, DateTime leaving, int? rateEndPeriod)
         {
-            return (rateEndPeriod is null) ? (leaving - arrival).Days : rateEndPeriod.Value;//в качестве окончания периода возьмем количество дней, которое груз находился на складе
+            return (rateEndPeriod is null) ? (leaving - arrival).Days+1 : rateEndPeriod.Value;//в качестве окончания периода возьмем количество дней, которое груз находился на складе
         }
 
         private static DateTime RoundToDays(DateTime date)
