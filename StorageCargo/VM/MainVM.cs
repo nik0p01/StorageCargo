@@ -5,17 +5,20 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Forms;
-using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace StorageCargo.VM
 {
     public class MainVM : INotifyPropertyChanged
     {
+        DelegateCommand _calculateCommand;
+        DelegateCommand _takeFileCommand;
+        private DateTime _dateStart = new DateTime(2017, 10, 1);
+        private DateTime _dateEnd = new DateTime(2017, 10, 15);
 
 
         public MainVM()
         {
-            _calculateCommand = new DelegateCommand(ExecuteCalculate);
+            _calculateCommand = new DelegateCommand(ExecuteCalculate,(b=>_dateStart<=_dateEnd  ));
             _takeFileCommand = new DelegateCommand(ExecuteTakeFile);
             ProgressiveRates = new ObservableCollection<ProgressiveRate>();
         }
@@ -39,7 +42,6 @@ namespace StorageCargo.VM
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        DelegateCommand _calculateCommand;
         public DelegateCommand CalculateCommand
         {
             get
@@ -48,7 +50,6 @@ namespace StorageCargo.VM
             }
         }
 
-        DelegateCommand _takeFileCommand;
         public DelegateCommand TakeFileCommand
         {
             get
@@ -57,16 +58,6 @@ namespace StorageCargo.VM
             }
         }
 
-
-        private void ExecuteCalculate(object obj)
-        {
-            ProgressiveRates.Clear();
-            CalculationProcessor calculationProcessor = new CalculationProcessor(new RepositoryExcel(_excelFilePatch), ProgressiveRates, _dateStart, _dateEnd);
-            calculationProcessor.CalculateProgressiveRate();
-        }
-
-
-        private DateTime _dateStart = new DateTime(2017, 10, 1);
         public DateTime DateStart
         {
             get
@@ -76,10 +67,10 @@ namespace StorageCargo.VM
             set
             {
                 _dateStart = value;
+                _calculateCommand.RaiseCanExecuteChanged();
             }
         }
 
-        private DateTime _dateEnd = new DateTime(2017, 10, 15);
         public DateTime DateEnd
         {
             get
@@ -89,8 +80,17 @@ namespace StorageCargo.VM
             set
             {
                 _dateEnd = value;
+                _calculateCommand.RaiseCanExecuteChanged();
+
             }
 
+        }
+
+        private void ExecuteCalculate(object obj)
+        {
+            ProgressiveRates.Clear();
+            CalculationProcessor calculationProcessor = new CalculationProcessor(new RepositoryExcel(_excelFilePatch), ProgressiveRates, _dateStart, _dateEnd);
+            calculationProcessor.CalculateProgressiveRate();
         }
     }
 }

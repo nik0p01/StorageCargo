@@ -21,7 +21,9 @@ namespace StorageCargo.BL
             _progressiveRates = progressiveRates;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void CalculateProgressiveRate()
         {
             if (_dateBeginRange > _dateEndRange)

@@ -1,6 +1,9 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using StorageCargo.DAL.Entities;
+using StorageCargo.Exceptions;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace StorageCargo.DAL.Repository
 {
@@ -33,6 +36,10 @@ namespace StorageCargo.DAL.Repository
 
         private void GetDateFromExcel(ICollectionEntities Entities, int sheet)
         {
+            if (!File.Exists(_excelFilePatch))
+            {
+                throw new FileNotFoundException($"EXcel file {_excelFilePatch} not found");
+            }
             Application ObjExcel = new Application();
             try
             {
@@ -51,6 +58,10 @@ namespace StorageCargo.DAL.Repository
                     }
                     Entities.AddEntity(row);
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcelProcessingException("Excel file processing error",ex );
             }
             finally
             {
