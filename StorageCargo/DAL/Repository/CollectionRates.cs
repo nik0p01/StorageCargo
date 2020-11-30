@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace StorageCargo.DAL.Repository
 {
+
+    /// <summary>
+    /// Класс представляющий таблицу Тариф (коллекция объектов Rate)
+    /// </summary>
     class CollectionRates : ICollectionEntities
     {
         public CollectionRates()
@@ -11,7 +15,10 @@ namespace StorageCargo.DAL.Repository
         }
 
         public List<IEntity> Entities { get; private set; }
-
+        /// <summary>
+        /// Метод добавления строки в таблицу (добавления элемента Rate)
+        /// </summary>
+        /// <param name="elements">Массив строк представляющий элементы строки таблицы Тариф</param>
         public void AddEntity(string[] elements)
         {
             var number = int.Parse(elements[0]);

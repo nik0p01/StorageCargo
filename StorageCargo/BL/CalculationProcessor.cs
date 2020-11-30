@@ -22,7 +22,7 @@ namespace StorageCargo.BL
         }
 
         /// <summary>
-        /// 
+        /// Метод произвоит расчет и заполняет результирующую таблицу на основе данных полученных из репозитория и дат расчета. 
         /// </summary>
         public void CalculateProgressiveRate()
         {

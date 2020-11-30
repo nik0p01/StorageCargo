@@ -4,6 +4,9 @@ using System.Runtime.CompilerServices;
 
 namespace StorageCargo.BL.BLEntities
 {
+    /// <summary>
+    /// Класс представляющий строку результирующей таблицы 
+    /// </summary>
     public class ProgressiveRate : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

@@ -8,23 +8,29 @@ using System.Windows.Forms;
 
 namespace StorageCargo.VM
 {
+    /// <summary>
+    /// Класс Представление - Модель (VM)  из архитектуры MVVM
+    /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
-        DelegateCommand _calculateCommand;
-        DelegateCommand _takeFileCommand;
+        readonly DelegateCommand _calculateCommand;
+        readonly DelegateCommand _takeFileCommand;
         private DateTime _dateStart = new DateTime(2017, 10, 1);
         private DateTime _dateEnd = new DateTime(2017, 10, 15);
-
+        private string _excelFilePatch = @"c:\Temp\Test.xlsx";
 
         public MainVM()
         {
-            _calculateCommand = new DelegateCommand(ExecuteCalculate,(b=>_dateStart<=_dateEnd  ));
+            _calculateCommand = new DelegateCommand(ExecuteCalculate,(b=>_dateStart<=_dateEnd  ));//Отключение кнопки Расчета при некорректных датах
             _takeFileCommand = new DelegateCommand(ExecuteTakeFile);
             ProgressiveRates = new ObservableCollection<ProgressiveRate>();
         }
 
-        //TODO: Delete it
-        private string _excelFilePatch = @"c:\Temp\Test.xlsx";
+    
+       /// <summary>
+       /// Обраблотчик нажатия кнопки выбора файла Excel 
+       /// </summary>
+       /// <param name="obj"></param>
         private void ExecuteTakeFile(object obj)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -37,6 +43,11 @@ namespace StorageCargo.VM
 
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<ProgressiveRate> ProgressiveRates { get; set; }
+
+        /// <summary>
+        /// Метод позволяющий представлению отслеживать изменение данных в ПредставлениеМодели
+        /// </summary>
+        /// <param name="propertyName"></param>
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -86,6 +97,10 @@ namespace StorageCargo.VM
 
         }
 
+        /// <summary>
+        /// Обработчик нажатия кнопки расчета 
+        /// </summary>
+        /// <param name="obj"></param>
         private void ExecuteCalculate(object obj)
         {
             ProgressiveRates.Clear();

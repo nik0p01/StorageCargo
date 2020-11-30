@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace StorageCargo.DAL.Repository
 {
+    /// <summary>
+    /// Класс представляющий таблицу Грузов (коллекция объектов Cargo)
+    /// </summary>
     class CollectionCargos : ICollectionEntities
     {
         public CollectionCargos()
@@ -12,7 +15,10 @@ namespace StorageCargo.DAL.Repository
         }
 
         public List<IEntity> Entities { get; private set; }
-
+        /// <summary>
+        /// Метод добавления строки в таблицу (добавления элемента Cargo)
+        /// </summary>
+        /// <param name="elements">Массив строк представляющий элементы строки таблицы Груз</param>
         public void AddEntity(string[] elements)
         {
             var name = elements[0];

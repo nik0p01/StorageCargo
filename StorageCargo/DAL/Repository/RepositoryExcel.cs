@@ -7,15 +7,24 @@ using System.IO;
 
 namespace StorageCargo.DAL.Repository
 {
+    /// <summary>
+    /// Получения данных из таблицы Excel 
+    /// </summary>
     public class RepositoryExcel : IRepository
     {
         private readonly string _excelFilePatch;
-
+        /// <summary>
+        /// Конструктор репозитория 
+        /// </summary>
+        /// <param name="excelFilePatch">Путь к файлу Excel</param>
         public RepositoryExcel(string excelFilePatch)
         {
             _excelFilePatch = excelFilePatch;
         }
-
+        /// <summary>
+        /// Метод получения данных из Excel файла
+        /// </summary>
+        /// <returns>Таблица грузов</returns>
         public ICollection<Cargo> GetCargos()
         {
             CollectionCargos cargos = new CollectionCargos();
@@ -25,6 +34,10 @@ namespace StorageCargo.DAL.Repository
             return cargosResult;
         }
 
+        /// <summary>
+        /// Метод получения данных из Excel файла
+        /// </summary>
+        /// <returns>Таблица тарифов</returns>
         public ICollection<Rate> GetRates()
         {
             CollectionRates rates = new CollectionRates();
@@ -33,7 +46,11 @@ namespace StorageCargo.DAL.Repository
             List<Rate> ratesResult = rates.Entities.ConvertAll(e => e as Rate);
             return ratesResult;
         }
-
+        /// <summary>
+        /// Метод заполнения таблицы из файла Excel 
+        /// </summary>
+        /// <param name="Entities">Коллекция строк таблицы</param>
+        /// <param name="sheet">Лист, с которого необходимо производить чтение в файле Excel</param>
         private void GetDateFromExcel(ICollectionEntities Entities, int sheet)
         {
             if (!File.Exists(_excelFilePatch))
@@ -56,7 +73,7 @@ namespace StorageCargo.DAL.Repository
                     {
                         row[j] = (ObjWorkSheet.Cells[i + 1, j + 1]).Text.ToString();
                     }
-                    Entities.AddEntity(row);
+                    Entities.AddEntity(row); //Добавление строки, метод спецефический для каждой реализации интерфейса ICollectionEntities 
                 }
             }
             catch (Exception ex)

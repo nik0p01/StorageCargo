@@ -3,6 +3,9 @@ using System.Windows.Input;
 
 namespace StorageCargo.VM
 {
+    /// <summary>
+    /// Класс служащий для вызова обработчика нажатия кнопки в архитектуре MVVM
+    /// </summary>
     public class DelegateCommand : ICommand
     {
         Action<object> execute;
